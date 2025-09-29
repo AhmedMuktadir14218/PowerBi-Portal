@@ -1,0 +1,40 @@
+﻿@inject NavigationManager Navigation
+
+<a href="@Href" class="@GetCssClass()">
+    <div class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            @switch (Icon.ToLower())
+            {
+                case "home":
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    break;
+                case "users":
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                    break;
+                case "calculator":
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                    break;
+                default:
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    break;
+            }
+        </svg>
+        <span class="font-medium">@Text</span>
+    </div>
+</a>
+
+@code {
+    [Parameter] public string Href { get; set; } = "";
+    [Parameter] public string Icon { get; set; } = "";
+    [Parameter] public string Text { get; set; } = "";
+
+    private string GetCssClass()
+    {
+        var currentPath = Navigation.ToBaseRelativePath(Navigation.Uri);
+        var isActive = (Href == "" && currentPath == "") || (Href != "" && currentPath.StartsWith(Href));
+
+        return isActive
+            ? "block text-blue-600 bg-blue-50 hover:bg-blue-100"
+            : "block text-gray-700 hover:text-blue-600 hover:bg-gray-50";
+    }
+}

@@ -1,0 +1,139 @@
+﻿@page "/employees"
+@using BlazorStandAlone.Models
+@inject BlazorStandAlone.Services.EmployeeService EmployeeService
+
+<h3>Employees</h3>
+
+@if (loading)
+{
+    <p>Loading...</p>
+}
+else
+{
+    @* <h1 class="bg-black m-5 text-uppercase">Welcome to your new app.</h1> *@
+    <table class="table">
+        <thead>
+            <tr><th>Name</th><th>Email</th><th>Phone</th><th>Salary</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var e in employees)
+            {
+                <tr>
+                    @if (editEmployee?.Id == e.Id)
+                    {
+                        <!-- Edit mode row -->
+                        <td><InputText class="form-control" @bind-Value="editEmployee.Name" /></td>
+                        <td><InputText class="form-control" @bind-Value="editEmployee.Email" /></td>
+                        <td><InputText class="form-control" @bind-Value="editEmployee.Phone" /></td>
+                        <td><InputNumber class="form-control" @bind-Value="editEmployee.Salary" /></td>
+                        <td>
+                            <button class="btn btn-success btn-sm" @onclick="() => SaveEdit(e.Id)">Save</button>
+                            <button class="btn btn-secondary btn-sm" @onclick="CancelEdit">Cancel</button>
+                        </td>
+                    }
+                    else
+                    {
+                        <!-- Normal row -->
+                        <td>@e.Name</td>
+                        <td>@e.Email</td>
+                        <td>@e.Phone</td>
+                        <td>@e.Salary</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" @onclick="() => StartEdit(e)">Edit</button>
+                            <button class="btn btn-danger btn-sm" @onclick="() => DeleteEmployee(e.Id)">Delete</button>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<hr />
+<h4>Add new employee</h4>
+
+<EditForm Model="newEmployee" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="mb-2">
+        <label>Name</label>
+        <InputText class="form-control" @bind-Value="newEmployee.Name" />
+    </div>
+    <div class="mb-2">
+        <label>Email</label>
+        <InputText class="form-control" @bind-Value="newEmployee.Email" />
+    </div>
+    <div class="mb-2">
+        <label>Phone</label>
+        <InputText class="form-control" @bind-Value="newEmployee.Phone" />
+    </div>
+    <div class="mb-2">
+        <label>Salary</label>
+        <InputNumber class="form-control" @bind-Value="newEmployee.Salary" />
+    </div>
+    <button class="btn btn-primary" type="submit">Add</button>
+</EditForm>
+
+@code {
+    private List<Employee> employees = new();
+    private AddEmployeeDto newEmployee = new();
+    private UpdateEmployeeDto? editEmployee; // holds the employee being edited
+    private bool loading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        employees = await EmployeeService.GetAllEmployeesAsync();
+        loading = false;
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var created = await EmployeeService.AddEmployeeAsync(newEmployee);
+        employees.Add(created);
+        newEmployee = new AddEmployeeDto(); // reset form
+    }
+
+    private void StartEdit(Employee e)
+    {
+        editEmployee = new UpdateEmployeeDto
+        {
+            Id = e.Id,
+            Name = e.Name,
+            Email = e.Email,
+            Phone = e.Phone,
+            Salary = e.Salary
+        };
+    }
+
+    private void CancelEdit()
+    {
+        editEmployee = null;
+    }
+
+    private async Task SaveEdit(Guid id)
+    {
+        if (editEmployee is not null)
+        {
+            var updated = await EmployeeService.UpdateEmployeeAsync(id, editEmployee);
+            if (updated != null)
+            {
+                // update local list
+                var index = employees.FindIndex(x => x.Id == id);
+                if (index >= 0)
+                {
+                    employees[index] = updated;
+                }
+            }
+            editEmployee = null;
+        }
+    }
+
+    private async Task DeleteEmployee(Guid id)
+    {
+        var confirmed = await EmployeeService.DeleteEmployeeAsync(id);
+        if (confirmed)
+        {
+            employees.RemoveAll(e => e.Id == id);
+        }
+    }
+}

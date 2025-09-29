@@ -1,0 +1,23 @@
+﻿<h3>QuizComponent</h3>
+<div class="container">
+    <div class="col-5">
+       <h3>Q: @Question</h3>
+       <p>
+            1: <button class="btn btn-primary " @onclick=ForA>@AnswerA</button>
+            2: <button class="btn btn-primary" @onclick=ForB>@AnswerB</button>
+       </p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Question { get; set; }
+    [Parameter]
+    public string AnswerA { get; set; }
+    [Parameter]
+    public string AnswerB { get; set; }
+    [Parameter]
+    public EventCallback ForA { get; set; }
+    [Parameter]
+    public EventCallback ForB { get; set; }
+}

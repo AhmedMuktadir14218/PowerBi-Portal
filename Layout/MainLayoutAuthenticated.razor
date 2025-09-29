@@ -1,0 +1,634 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using CRUD_Employee_standAlone.Services
+@using CRUD_Employee_standAlone.Models
+@inject AuthService AuthService
+@inject CustomAuthStateProvider AuthStateProvider
+@inject NavigationManager Navigation
+@inject CategoryService CategoryService
+
+@if (isLoading)
+{
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+    </div>
+}
+else
+{
+    @if (userRole == "admin")
+    {
+        <!-- Admin Layout -->
+        <div class="flex h-screen bg-gray-100">
+            
+            <!-- Sidebar -->
+            <div class="@GetAdminSidebarClass()">
+                <div class="flex flex-col h-full bg-[#F5F5F5]">
+                    
+                    <!-- Logo + Toggle -->
+                    <div class="flex items-center justify-between h-16 px-4 border-b border-gray-200">
+                        @if (sidebarExpanded)
+                        {
+                            <img src="logoTusuka.png" alt="Logo" class="h-8" />
+                        }
+                        <button @onclick="ToggleSidebar"
+                                class="p-2 text-gray-600 hover:bg-blue-100 rounded-md transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Navigation -->
+                    <nav class="flex-1 px-2 py-4 space-y-1">
+                        <AdminNavMenuItem Href="dashboard" Icon="chart" Text="Dashboard" IsExpanded="sidebarExpanded" />
+                        <AdminNavMenuItem Href="users" Icon="users" Text="Manage Users" IsExpanded="sidebarExpanded" />
+                        <AdminNavMenuItem Href="manage-categories" Icon="categories" Text="Manage Categories" IsExpanded="sidebarExpanded" />
+                        <AdminNavMenuItem Href="user-permissions" Icon="permissions" Text="User Permissions" IsExpanded="sidebarExpanded" />
+                        <AdminNavMenuItem Href="profile" Icon="profile" Text="Profile" IsExpanded="sidebarExpanded" />
+                    </nav>
+
+                    <!-- Profile + Logout -->
+                  <!-- Profile + Logout -->
+<div class="p-4 border-t border-gray-200">
+    <div class="flex items-center justify-between">
+        <!-- User avatar + name only if expanded -->
+        @if (sidebarExpanded)
+        {
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M16 7a4 4 0 11-8 0 4 4 0 
+                                 018 0zM12 14a7 7 0 00-7 7h14a7 
+                                 7 0 00-7-7z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-900">@currentUserName</p>
+                </div>
+            </div>
+        }
+        
+        <!-- Logout always visible -->
+        <button @onclick="Logout"
+                class="p-2 text-red-600 hover:bg-red-100 rounded-md transition"
+                title="Logout">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 
+                         4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 
+                         3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+        </button>
+    </div>
+</div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="@GetAdminContentClass()">
+                <main class="flex-1 overflow-y-auto bg-gray-50">
+                    <div class="p-6">
+                        @Body
+                    </div>
+                </main>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- User Layout -->
+        <div class="flex h-screen bg-gray-100">
+            
+            <!-- Sidebar -->
+            <div class="@GetUserSidebarClass()">
+                <div class="flex flex-col h-full bg-[#F5F5F5]">
+                    
+                    <!-- Logo + Toggle -->
+                    <div class="flex items-center justify-between h-16 px-4 border-b border-gray-200">
+                        @if (userSidebarExpanded)
+                        {
+                            <img src="logoTusuka.png" alt="Logo" class="h-8" />
+                        }
+                        <button @onclick="ToggleUserSidebar"
+                                class="p-2 text-gray-600 hover:bg-blue-100 rounded-md transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Navigation -->
+                    <nav class="flex-1 px-2 py-4 space-y-1">
+                        @if (userCategories != null && userCategories.Any())
+                        {
+                            @foreach (var category in userCategories)
+                            {
+                                <UserNavMenuItem Href="" 
+                                                 Icon="@category.Name.ToLower()" 
+                                                 Text="@category.Name" 
+                                                 IsExpanded="userSidebarExpanded" 
+                                                 PreventDefault="true"
+                                                 OnClick="() => SelectCategory(category)" />
+                            }
+                        }
+                        <UserNavMenuItem Href="profile" Icon="profile" Text="Profile" IsExpanded="userSidebarExpanded" />
+                    </nav>
+
+                    <!-- Profile + Logout -->
+<!-- Profile + Logout -->
+<div class="p-4 border-t border-gray-200">
+    <div class="flex items-center justify-between">
+        @if (userSidebarExpanded)
+        {
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M16 7a4 4 0 11-8 0 
+                                 4 4 0 018 0zM12 14a7 7 0 
+                                 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                </div>
+                <p class="text-sm font-medium text-gray-900">@currentUserName</p>
+            </div>
+        }
+        
+        <!-- Logout always visible -->
+        <button @onclick="Logout"
+                class="p-2 text-red-600 hover:bg-red-100 rounded-md transition"
+                title="Logout">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 
+                         4v1a3 3 0 01-3 3H6a3 3 0 
+                         01-3-3V7a3 3 0 013-3h4a3 3 
+                         0 013 3v1"></path>
+            </svg>
+        </button>
+    </div>
+</div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="@GetUserContentClass()">
+                <main class="flex-1 overflow-y-auto bg-gray-50">
+                    <CascadingValue Value="selectedCategory">
+                        @Body
+                    </CascadingValue>
+                </main>
+            </div>
+        </div>
+    }
+}
+
+@code {
+    [Parameter] public RenderFragment? Body { get; set; }
+
+    private string userRole = string.Empty;
+    private string currentUserName = "User";
+    private bool isLoading = true;
+    private bool sidebarExpanded = false;
+    private bool userSidebarExpanded = false;
+    private List<Category> userCategories = new();
+    private Category? selectedCategory;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            userRole = await AuthService.GetRoleAsync() ?? string.Empty;
+
+            var profile = await AuthService.GetProfileAsync();
+            if (profile != null)
+            {
+                currentUserName = profile.FullName ?? profile.Username ?? "User";
+            }
+
+            if (userRole.ToLower() == "user")
+            {
+                await LoadUserCategories();
+            }
+
+            var currentPath = Navigation.ToBaseRelativePath(Navigation.Uri);
+
+            if ((userRole.ToLower() == "user" || userRole.ToLower() == "admin") && currentPath == "")
+            {
+                Navigation.NavigateTo("/dashboard");
+                return;
+            }
+        }
+        catch { }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task LoadUserCategories()
+    {
+        userCategories = await CategoryService.GetCategoriesAsync();
+        if (userCategories.Any())
+            selectedCategory = userCategories.First();
+    }
+
+    private void SelectCategory(Category category)
+    {
+        selectedCategory = category;
+        var currentPath = Navigation.ToBaseRelativePath(Navigation.Uri);
+        if (currentPath != "dashboard")
+        {
+            Navigation.NavigateTo("/dashboard");
+        }
+        StateHasChanged();
+    }
+
+    private string GetAdminSidebarClass() =>
+        sidebarExpanded ? "fixed inset-y-0 left-0 w-64 shadow-lg transition-all" : "fixed inset-y-0 left-0 w-16 shadow-lg transition-all";
+
+    private string GetAdminContentClass() =>
+        sidebarExpanded ? "flex-1 ml-64 transition-all" : "flex-1 ml-16 transition-all";
+
+    private string GetUserSidebarClass() =>
+        userSidebarExpanded ? "fixed inset-y-0 left-0 w-64 shadow-lg transition-all" : "fixed inset-y-0 left-0 w-16 shadow-lg transition-all";
+
+    private string GetUserContentClass() =>
+        userSidebarExpanded ? "flex-1 ml-64 transition-all" : "flex-1 ml-16 transition-all";
+
+    private void ToggleSidebar() => sidebarExpanded = !sidebarExpanded;
+    private void ToggleUserSidebar() => userSidebarExpanded = !userSidebarExpanded;
+
+    private async Task Logout()
+    {
+        await AuthService.LogoutAsync();
+        AuthStateProvider.NotifyUserLogout();
+        Navigation.NavigateTo("/login", forceLoad: true);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* @using Microsoft.AspNetCore.Components.Authorization
+@using CRUD_Employee_standAlone.Services
+@using CRUD_Employee_standAlone.Models
+@inject AuthService AuthService
+@inject CustomAuthStateProvider AuthStateProvider
+@inject NavigationManager Navigation
+@inject CategoryService CategoryService
+
+@if (isLoading)
+{
+<div class="flex justify-center items-center min-h-screen">
+<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+</div>
+}
+else
+{
+@if (userRole == "admin")
+{
+<!-- Admin layout with collapsible sidebar -->
+<div class="flex h-screen bg-gray-100">
+<!-- Admin Sidebar - Same behavior on all devices -->
+<div class="@GetAdminSidebarClass()">
+<div class="flex flex-col h-full">
+<!-- Logo/Brand -->
+<div class="flex items-center justify-between h-16 px-4 bg-gray-300">
+@if (sidebarExpanded)
+{
+<img src="logoTusuka.png" alt="DHU Logo" class="h-8" />
+}
+<button @onclick="ToggleSidebar" class="p-2 text-white hover:bg-blue-700 rounded-lg transition-colors duration-200">
+@if (sidebarExpanded)
+{
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path>
+</svg>
+}
+else
+{
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+</svg>
+}
+</button>
+</div>
+
+ 
+                <!-- Navigation -->
+                <!-- Navigation -->
+                <nav class="flex-1 px-2 py-6 space-y-2">
+                    <AdminNavMenuItem Href="dashboard" Icon="chart" Text="Dashboard" IsExpanded="sidebarExpanded" />
+                    <AdminNavMenuItem Href="users" Icon="users" Text="Manage Users" IsExpanded="sidebarExpanded" />
+                    <AdminNavMenuItem Href="manage-categories" Icon="categories" Text="Manage Categories" IsExpanded="sidebarExpanded" />
+                    <AdminNavMenuItem Href="user-permissions" Icon="permissions" Text="User Permissions" IsExpanded="sidebarExpanded" />
+                    <AdminNavMenuItem Href="profile" Icon="profile" Text="Profile" IsExpanded="sidebarExpanded" />
+                </nav>
+
+                <!-- Admin Profile & Logout -->
+                <div class="p-4 border-t border-gray-200">
+                    @if (sidebarExpanded)
+                    {
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900">@currentUserName</p>
+                                <p class="text-xs text-gray-500">Administrator</p>
+                            </div>
+                        </div>
+                        <button @onclick="Logout" class="w-full flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors duration-200">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                            </svg>
+                            Logout
+                        </button>
+                    }
+                    else
+                    {
+                        <div class="flex flex-col items-center space-y-3">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                            </div>
+                            <button @onclick="Logout" class="p-2 text-red-600 hover:bg-red-100 rounded-md transition-colors duration-200" title="Logout">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Main content - Adjust margin based on sidebar width -->
+        <div class="@GetAdminContentClass()">
+            <!-- Page content -->
+            <main class="flex-1 overflow-y-auto bg-gray-50">
+                <div class="p-6">
+                    @Body
+                </div>
+            </main>
+        </div>
+    </div>
+}
+else
+{
+    <!-- User layout with collapsible sidebar -->
+    <div class="flex h-screen bg-gray-300">
+        <!-- User Sidebar - Same behavior on all devices -->
+        <div class="@GetUserSidebarClass()">
+            <div class="flex flex-col h-full">
+                <!-- Logo/Brand -->
+                <div class="flex items-center justify-between h-16 px-4 bg-gray-300">
+                    @if (userSidebarExpanded)
+                    {
+                        <img src="logoTusuka.png" alt="DHU Logo" class="h-8" />
+                    }
+                    <button @onclick="ToggleUserSidebar" class="p-2 text-white rounded-lg transition-colors duration-200">
+                        @if (userSidebarExpanded)
+                        {
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path>
+                            </svg>
+                        }
+                        else
+                        {
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+                            </svg>
+                        }
+                    </button>
+                </div>
+
+                <!-- User Navigation -->
+                <nav class="flex-1 px-2 py-6 space-y-2">
+                    <!-- Dynamic Category Navigation -->
+                    @if (userCategories != null && userCategories.Any())
+                    {
+                        @foreach (var category in userCategories)
+                        {
+                            <UserNavMenuItem Href="" 
+                                           Icon="@category.Name.ToLower()" 
+                                           Text="@category.Name" 
+                                           IsExpanded="userSidebarExpanded" 
+                                           PreventDefault="true"
+                                           OnClick="() => SelectCategory(category)" />
+                        }
+                    }
+                    <UserNavMenuItem Href="profile" Icon="profile" Text="Profile" IsExpanded="userSidebarExpanded" />
+                </nav>
+
+                <!-- User Profile & Logout -->
+                <div class="p-4 border-t border-gray-200">
+                    @if (userSidebarExpanded)
+                    {
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900">@currentUserName</p>
+                            </div>
+                        </div>
+                        <button @onclick="Logout" class="w-full flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors duration-200">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                            </svg>
+                            Logout
+                        </button>
+                    }
+                    else
+                    {
+                        <div class="flex flex-col items-center space-y-3">
+                            <div class="w-10 h-10 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                            </div>
+                            <button @onclick="Logout" class="p-2 text-red-600 hover:bg-red-100 rounded-md transition-colors duration-200" title="Logout">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- User Main content - Adjust margin based on sidebar width -->
+        <div class="@GetUserContentClass()">
+            <!-- Page content -->
+            <main class="flex-1 overflow-y-auto bg-gray-50">
+                <CascadingValue Value="selectedCategory">
+                    @Body
+                </CascadingValue>
+            </main>
+        </div>
+    </div>
+}
+}
+
+@code {
+[Parameter] public RenderFragment? Body { get; set; }
+ 
+private string userRole = string.Empty;
+private string currentUserName = "User";
+private bool isLoading = true;
+private bool sidebarExpanded = false;
+private bool userSidebarExpanded = false;
+private List<Category> userCategories = new();
+private Category? selectedCategory;
+
+protected override async Task OnInitializedAsync()
+{
+    try
+    {
+        userRole = await AuthService.GetRoleAsync() ?? string.Empty;
+
+        // Get user profile to show name
+        var profile = await AuthService.GetProfileAsync();
+        if (profile != null)
+        {
+            currentUserName = profile.FullName ?? profile.Username ?? "User";
+        }
+
+        // Load user categories ONLY if user role (not admin)
+        if (userRole.ToLower() == "user")
+        {
+            await LoadUserCategories();
+        }
+
+        // Handle navigation based on role and current path
+        var currentPath = Navigation.ToBaseRelativePath(Navigation.Uri);
+
+        // For regular users: redirect empty path to dashboard
+        if (userRole.ToLower() == "user" && currentPath == "")
+        {
+            Navigation.NavigateTo("/dashboard");
+            return;
+        }
+
+        // For admins: redirect empty path (home) to dashboard
+        if (userRole.ToLower() == "admin" && currentPath == "")
+        {
+            Navigation.NavigateTo("/dashboard");
+            return;
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error in MainLayoutAuthenticated: {ex.Message}");
+    }
+    finally
+    {
+        isLoading = false;
+    }
+}
+
+private async Task LoadUserCategories()
+{
+    try
+    {
+        userCategories = await CategoryService.GetCategoriesAsync();
+
+        // Auto-select first category
+        if (userCategories.Any())
+        {
+            selectedCategory = userCategories.First();
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error loading user categories: {ex.Message}");
+    }
+}
+
+private void SelectCategory(Category category)
+{
+    selectedCategory = category;
+
+    // Navigate to dashboard if not already there
+    var currentPath = Navigation.ToBaseRelativePath(Navigation.Uri);
+    if (currentPath != "dashboard")
+    {
+        Navigation.NavigateTo("/dashboard");
+    }
+
+    StateHasChanged();
+}
+
+private string GetAdminSidebarClass()
+{
+    var width = sidebarExpanded ? "w-64" : "w-16";
+    return $"fixed inset-y-0 left-0 z-50 bg-white shadow-lg transition-all duration-300 ease-in-out {width}";
+}
+
+private string GetAdminContentClass()
+{
+    var margin = sidebarExpanded ? "ml-64" : "ml-16";
+    return $"flex-1 flex flex-col {margin} transition-all duration-300 ease-in-out";
+}
+
+private string GetUserSidebarClass()
+{
+    var width = userSidebarExpanded ? "w-64" : "w-16";
+    return $"fixed inset-y-0 left-0 z-50 bg-white shadow-lg transition-all duration-300 ease-in-out {width}";
+}
+
+private string GetUserContentClass()
+{
+    var margin = userSidebarExpanded ? "ml-64" : "ml-16";
+    return $"flex-1 flex flex-col {margin} transition-all duration-300 ease-in-out";
+}
+
+private void ToggleSidebar()
+{
+    sidebarExpanded = !sidebarExpanded;
+}
+
+private void ToggleUserSidebar()
+{
+    userSidebarExpanded = !userSidebarExpanded;
+}
+
+private async Task Logout()
+{
+    try
+    {
+        await AuthService.LogoutAsync();
+        AuthStateProvider.NotifyUserLogout();
+        Navigation.NavigateTo("/login", forceLoad: true);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error during logout: {ex.Message}");
+        Navigation.NavigateTo("/login", forceLoad: true);
+    }
+}
+} *@

@@ -1,0 +1,342 @@
+﻿@page "/user-permissions"
+@using CRUD_Employee_standAlone.Models
+@using CRUD_Employee_standAlone.Services
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@attribute [Authorize(Roles = "admin")]
+@inject CategoryService CategoryService
+@inject AuthService AuthService
+@inject IJSRuntime JSRuntime
+
+<PageTitle>User Permissions</PageTitle>
+
+<div class="max-w-7xl mx-auto py-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-900">User Category Permissions</h1>
+        <button @onclick="ShowGrantPermissionModal"
+                class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            Grant Permissions
+        </button>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="text-center py-8">
+            <div class="animate-spin inline-block w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full"></div>
+            <p class="mt-2 text-gray-600">Loading user permissions...</p>
+        </div>
+    }
+    else if (userPermissions == null || !userPermissions.Any())
+    {
+        <div class="text-center py-8">
+            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">No user permissions found</h3>
+            <p class="mt-1 text-sm text-gray-500">Start by granting permissions to users.</p>
+        </div>
+    }
+    else
+    {
+        <div class="space-y-6">
+            @foreach (var userPermission in userPermissions)
+            {
+                <div class="bg-white shadow rounded-lg">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900">@userPermission.Username</h3>
+                                <p class="text-sm text-gray-500">@userPermission.Email</p>
+                            </div>
+                            <button @onclick="() => ShowEditPermissionModal(userPermission)"
+                                    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm">
+                                Edit Permissions
+                            </button>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4">
+                        @if (userPermission.Permissions.Any())
+                        {
+                            <div class="flex flex-wrap gap-2">
+                                @foreach (var permission in userPermission.Permissions)
+                                {
+                                    <div class="flex items-center bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+                                        <span>@permission.CategoryName</span>
+                                        <button @onclick="() => RevokePermission(userPermission.UserId, permission.CategoryId)"
+                                                class="ml-2 text-green-600 hover:text-green-800"
+                                                title="Revoke permission">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-gray-500 italic">No permissions granted</p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<!-- Grant/Edit Permission Modal -->
+@if (showPermissionModal)
+{
+    <div class="fixed inset-0 z-50 overflow-y-auto">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <!-- Background overlay -->
+            @* <div class="fixed inset-0 transition-opacity" @onclick="ClosePermissionModal">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div> *@
+
+            <!-- Modal panel -->
+            <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6" @onclick:stopPropagation="true">
+                <div class="mb-4">
+                    <h3 class="text-lg font-medium text-gray-900">
+                        @(isEditingPermission ? $"Edit Permissions for {selectedUser?.Username}" : "Grant Permissions")
+                    </h3>
+                </div>
+
+                @if (!string.IsNullOrEmpty(permissionErrorMessage))
+                {
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                        @permissionErrorMessage
+                    </div>
+                }
+
+                <EditForm Model="permissionFormModel" OnValidSubmit="HandleGrantPermission">
+                    <div class="space-y-4">
+                        @if (!isEditingPermission)
+                        {
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Select User *</label>
+                                <select @bind="permissionFormModel.UserId"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                                    <option value="0">Select a user...</option>
+                                    @if (allUsers != null)
+                                    {
+                                        @foreach (var user in allUsers.Where(u => u.Role.ToLower() != "admin"))
+                                        {
+                                            <option value="@user.Id">@user.Username - @user.Email</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        }
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Select Categories *</label>
+                            @if (allCategories != null && allCategories.Any())
+                            {
+                                <div class="space-y-2 max-h-60 overflow-y-auto border border-gray-200 rounded-md p-3">
+                                    @foreach (var category in allCategories)
+                                    {
+                                        <label class="flex items-center">
+                                            <input type="checkbox"
+                                                   checked="@permissionFormModel.CategoryIds.Contains(category.Id)"
+                                                   @onchange="@(e => HandleCategorySelection(category.Id, (bool)e.Value))"
+                                                   class="rounded border-gray-300 text-green-600 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50" />
+                                            <span class="ml-2 text-sm text-gray-900">@category.Name</span>
+                                        </label>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-gray-500 text-sm">No categories available</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200 mt-6">
+                        <button type="button" @onclick="ClosePermissionModal"
+                                class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-medium py-2 px-4 rounded-md">
+                            Cancel
+                        </button>
+                        <button type="submit" disabled="@isSavingPermission"
+                                class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md disabled:opacity-50">
+                            @if (isSavingPermission)
+                            {
+                                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            }
+                            Grant Permissions
+                        </button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private List<UserPermissionResponse>? userPermissions;
+    private List<UserResponse>? allUsers;
+    private List<Category>? allCategories;
+    private UserPermissionResponse? selectedUser;
+    private bool isLoading = true;
+    private bool showPermissionModal = false;
+    private bool isEditingPermission = false;
+    private bool isSavingPermission = false;
+    private string permissionErrorMessage = string.Empty;
+
+    private GrantPermissionRequest permissionFormModel = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        isLoading = true;
+        try
+        {
+            // Load data sequentially to avoid type inference issues
+            userPermissions = await CategoryService.GetAllUserPermissionsAsync();
+            allUsers = await AuthService.GetAllUsersAsync();
+            allCategories = await CategoryService.GetCategoriesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading data: {ex.Message}");
+            await JSRuntime.InvokeVoidAsync("alert", "Failed to load data. Please refresh the page.");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task ShowGrantPermissionModal()
+    {
+        permissionFormModel = new GrantPermissionRequest();
+        selectedUser = null;
+        isEditingPermission = false;
+        permissionErrorMessage = string.Empty;
+        showPermissionModal = true;
+    }
+
+    private async Task ShowEditPermissionModal(UserPermissionResponse user)
+    {
+        selectedUser = user;
+        permissionFormModel = new GrantPermissionRequest
+        {
+            UserId = user.UserId,
+            CategoryIds = user.Permissions.Select(p => p.CategoryId).ToList()
+        };
+        isEditingPermission = true;
+        permissionErrorMessage = string.Empty;
+        showPermissionModal = true;
+    }
+
+    private void ClosePermissionModal()
+    {
+        showPermissionModal = false;
+        permissionErrorMessage = string.Empty;
+        permissionFormModel = new GrantPermissionRequest();
+        selectedUser = null;
+        isEditingPermission = false;
+    }
+
+    private void HandleCategorySelection(int categoryId, bool isSelected)
+    {
+        if (isSelected)
+        {
+            if (!permissionFormModel.CategoryIds.Contains(categoryId))
+            {
+                permissionFormModel.CategoryIds.Add(categoryId);
+            }
+        }
+        else
+        {
+            permissionFormModel.CategoryIds.Remove(categoryId);
+        }
+    }
+
+    private async Task HandleGrantPermission()
+    {
+        isSavingPermission = true;
+        permissionErrorMessage = string.Empty;
+
+        try
+        {
+            if (permissionFormModel.UserId == 0)
+            {
+                permissionErrorMessage = "Please select a user.";
+                isSavingPermission = false;
+                return;
+            }
+
+            if (!permissionFormModel.CategoryIds.Any())
+            {
+                permissionErrorMessage = "Please select at least one category.";
+                isSavingPermission = false;
+                return;
+            }
+
+            var success = await CategoryService.GrantPermissionAsync(permissionFormModel);
+
+            if (success)
+            {
+                ClosePermissionModal();
+                await LoadData();
+                await JSRuntime.InvokeVoidAsync("alert", "Permissions granted successfully!");
+            }
+            else
+            {
+                permissionErrorMessage = "Failed to grant permissions. Please try again.";
+            }
+        }
+        catch (Exception ex)
+        {
+            permissionErrorMessage = "An error occurred. Please try again.";
+            Console.WriteLine($"Error granting permission: {ex.Message}");
+        }
+        finally
+        {
+            isSavingPermission = false;
+        }
+    }
+
+    private async Task RevokePermission(int userId, int categoryId)
+    {
+        try
+        {
+            var category = allCategories?.FirstOrDefault(c => c.Id == categoryId);
+            var user = userPermissions?.FirstOrDefault(u => u.UserId == userId);
+
+            var confirmed = await JSRuntime.InvokeAsync<bool>("confirm",
+                $"Are you sure you want to revoke '{category?.Name}' permission from '{user?.Username}'?");
+
+            if (confirmed)
+            {
+                var success = await CategoryService.RevokePermissionAsync(userId, categoryId);
+                if (success)
+                {
+                    await LoadData();
+                    await JSRuntime.InvokeVoidAsync("alert", "Permission revoked successfully!");
+                }
+                else
+                {
+                    await JSRuntime.InvokeVoidAsync("alert", "Failed to revoke permission. Please try again.");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "An error occurred while revoking permission.");
+            Console.WriteLine($"Error revoking permission: {ex.Message}");
+        }
+    }
+}

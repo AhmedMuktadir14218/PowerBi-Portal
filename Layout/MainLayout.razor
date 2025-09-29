@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using CRUD_Employee_standAlone.Services
+@inherits LayoutComponentBase
+@inject NavigationManager Navigation
+
+<CascadingAuthenticationState>
+    <AuthorizeView>
+        <Authorized>
+            <MainLayoutAuthenticated Body="@Body" />
+        </Authorized>
+        <NotAuthorized>
+            @if (Navigation.ToBaseRelativePath(Navigation.Uri) != "login")
+            {
+                 
+                    Navigation.NavigateTo("/login");
+                 
+            }
+            else
+            {
+                @Body
+            }
+        </NotAuthorized>
+    </AuthorizeView>
+</CascadingAuthenticationState>

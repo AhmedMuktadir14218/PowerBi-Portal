@@ -1,0 +1,368 @@
+﻿@page "/users"
+@using CRUD_Employee_standAlone.Models
+@using CRUD_Employee_standAlone.Services
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "admin")]
+@inject AuthService AuthService
+@inject IJSRuntime JSRuntime
+
+<div class="max-w-7xl mx-auto py-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-900">User Management</h1>
+        <button @onclick="ShowAddUserModal"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            Add User
+        </button>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="text-center py-8">
+            <div class="animate-spin inline-block w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full"></div>
+            <p class="mt-2 text-gray-600">Loading users...</p>
+        </div>
+    }
+    else if (users == null || !users.Any())
+    {
+        <div class="text-center py-8">
+            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">No users</h3>
+            <p class="mt-1 text-sm text-gray-500">Get started by creating a new user.</p>
+        </div>
+    }
+    else
+    {
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach (var user in users)
+                    {
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
+                                            <span class="text-sm font-medium text-gray-700">@user.FullName.FirstOrDefault()</span>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">@user.FullName</div>
+                                        <div class="text-sm text-gray-500">@user.Username</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">@user.Email</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full @(user.Role.ToLower() == "admin" ? "bg-purple-100 text-purple-800" : "bg-green-100 text-green-800")">
+                                    @user.Role
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                @user.CreatedAt.ToString("MMM dd, yyyy")
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                                <button @onclick="() => ShowEditUserModal(user)"
+                                        class="text-blue-600 hover:text-blue-900">
+                                    Edit
+                                </button>
+                                <button @onclick="() => DeleteUser(user)"
+                                        class="text-red-600 hover:text-red-900">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    </div>
+
+    <!-- Add/Edit User Modal -->
+@if (showModal)
+{
+        <div class="fixed inset-0 z-50 overflow-y-auto" @onclick:stopPropagation="true">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            @* <div class="fixed inset-0 bg-opacity-75 backdrop-blur-sm" ></div> *@
+                <!-- Background overlay -->
+                @* <div class="fixed inset-0 transition-opacity" @onclick="CloseModal"> *@
+                    @* <div class="absolute inset-0 bg-gray-500 opacity-75"></div> *@
+                @* </div> *@
+
+                <!-- Modal panel -->
+                <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6" @onclick:stopPropagation="true">
+                    <div class="mb-4">
+                        <h3 class="text-lg font-medium text-gray-900">
+                            @(isEditMode ? "Edit User" : "Add New User")
+                        </h3>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(modalErrorMessage))
+                    {
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                            @modalErrorMessage
+                        </div>
+                    }
+
+                    <EditForm Model="userFormModel" OnValidSubmit="HandleSaveUser" OnInvalidSubmit="HandleInvalidSubmit">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary class="text-red-600 mb-4" />
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Username *</label>
+                                <InputText @bind-Value="userFormModel.Username"
+                                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                           placeholder="Enter username" />
+                                <ValidationMessage For="@(() => userFormModel.Username)" class="text-red-600 text-sm mt-1" />
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Email *</label>
+                                <InputText type="email" @bind-Value="userFormModel.Email"
+                                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                           placeholder="Enter email address" />
+                                <ValidationMessage For="@(() => userFormModel.Email)" class="text-red-600 text-sm mt-1" />
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Full Name *</label>
+                                <InputText @bind-Value="userFormModel.FullName"
+                                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                           placeholder="Enter full name" />
+                                <ValidationMessage For="@(() => userFormModel.FullName)" class="text-red-600 text-sm mt-1" />
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Role</label>
+                                <InputSelect @bind-Value="userFormModel.Role"
+                                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                </InputSelect>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">
+                                    Password @(isEditMode ? "(leave blank to keep current)" : "*")
+                                </label>
+                                <InputText type="password" @bind-Value="userFormModel.Password"
+                                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                           placeholder="@(isEditMode ? "Enter new password (optional)" : "Enter password")" />
+                                <ValidationMessage For="@(() => userFormModel.Password)" class="text-red-600 text-sm mt-1" />
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200 mt-6">
+                            <button type="button" @onclick="CloseModal" @onclick:stopPropagation="true"
+                                    class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                                Cancel
+                            </button>
+                            <button type="submit" disabled="@isSaving" @onclick:stopPropagation="true"
+                                    class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                @if (isSaving)
+                                {
+                                    <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                }
+                                @(isEditMode ? "Update User" : "Create User")
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+
+}
+
+@code {
+    private List<UserResponse>? users;
+    private bool isLoading = true;
+    private bool showModal = false;
+    private bool isEditMode = false;
+    private bool isSaving = false;
+    private string modalErrorMessage = string.Empty;
+    private int editingUserId;
+
+    private RegisterRequest userFormModel = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUsers();
+    }
+
+    private async Task LoadUsers()
+    {
+        isLoading = true;
+        try
+        {
+            users = await AuthService.GetAllUsersAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading users: {ex.Message}");
+            await JSRuntime.InvokeVoidAsync("alert", "Failed to load users. Please refresh the page.");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void ShowAddUserModal()
+    {
+        userFormModel = new RegisterRequest { Role = "user" };
+        isEditMode = false;
+        modalErrorMessage = string.Empty;
+        showModal = true;
+        StateHasChanged(); // Force re-render
+    }
+
+    private async Task ShowEditUserModal(UserResponse user)
+    {
+        try
+        {
+            var userDetails = await AuthService.GetUserByIdAsync(user.Id);
+            if (userDetails != null)
+            {
+                userFormModel = new RegisterRequest
+                {
+                    Username = userDetails.Username,
+                    Email = userDetails.Email,
+                    FullName = userDetails.FullName,
+                    Role = userDetails.Role,
+                    Password = string.Empty // Always empty for edit mode
+                };
+                editingUserId = user.Id;
+                isEditMode = true;
+                modalErrorMessage = string.Empty;
+                showModal = true;
+                StateHasChanged(); // Force re-render
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading user details: {ex.Message}");
+            await JSRuntime.InvokeVoidAsync("alert", "Failed to load user details.");
+        }
+    }
+
+    private void CloseModal()
+    {
+        showModal = false;
+        modalErrorMessage = string.Empty;
+        userFormModel = new RegisterRequest();
+        editingUserId = 0;
+        StateHasChanged(); // Force re-render
+    }
+
+    private async Task HandleSaveUser()
+    {
+        isSaving = true;
+        modalErrorMessage = string.Empty;
+
+        try
+        {
+            // Additional validation for new users
+            if (!isEditMode && string.IsNullOrWhiteSpace(userFormModel.Password))
+            {
+                modalErrorMessage = "Password is required for new users.";
+                isSaving = false;
+                return;
+            }
+
+            bool success;
+
+            if (isEditMode)
+            {
+                var updateRequest = new UpdateUserRequest
+                {
+                    Username = userFormModel.Username?.Trim(),
+                    Email = userFormModel.Email?.Trim(),
+                    FullName = userFormModel.FullName?.Trim(),
+                    Role = userFormModel.Role,
+                    Password = string.IsNullOrWhiteSpace(userFormModel.Password) ? null : userFormModel.Password
+                };
+                success = await AuthService.UpdateUserAsync(editingUserId, updateRequest);
+            }
+            else
+            {
+                // Trim whitespace for new users
+                userFormModel.Username = userFormModel.Username?.Trim() ?? string.Empty;
+                userFormModel.Email = userFormModel.Email?.Trim() ?? string.Empty;
+                userFormModel.FullName = userFormModel.FullName?.Trim() ?? string.Empty;
+
+                success = await AuthService.RegisterAsync(userFormModel);
+            }
+
+            if (success)
+            {
+                CloseModal();
+                await LoadUsers();
+                await JSRuntime.InvokeVoidAsync("alert", isEditMode ? "User updated successfully!" : "User created successfully!");
+            }
+            else
+            {
+                modalErrorMessage = isEditMode ? "Failed to update user. Please check the information and try again." : "Failed to create user. Username or email might already exist.";
+            }
+        }
+        catch (Exception ex)
+        {
+            modalErrorMessage = "An error occurred. Please try again.";
+            Console.WriteLine($"Error saving user: {ex.Message}");
+        }
+        finally
+        {
+            isSaving = false;
+        }
+    }
+
+    private void HandleInvalidSubmit()
+    {
+        modalErrorMessage = "Please fill in all required fields correctly.";
+    }
+
+    private async Task DeleteUser(UserResponse user)
+    {
+        try
+        {
+            var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete user '{user.Username}'?\n\nThis action cannot be undone.");
+
+            if (confirmed)
+            {
+                var success = await AuthService.DeleteUserAsync(user.Id);
+                if (success)
+                {
+                    await LoadUsers();
+                    await JSRuntime.InvokeVoidAsync("alert", "User deleted successfully!");
+                }
+                else
+                {
+                    await JSRuntime.InvokeVoidAsync("alert", "Failed to delete user. You might not have permission or the user might be referenced elsewhere.");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "An error occurred while deleting the user.");
+            Console.WriteLine($"Error deleting user: {ex.Message}");
+        }
+    }
+}

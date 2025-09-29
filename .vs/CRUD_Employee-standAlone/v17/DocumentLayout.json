@@ -1,0 +1,704 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\test c#\\CRUD_Employee-standAlone\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\crud_employee-standalone.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:crud_employee-standalone.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\layout\\mainlayoutauthenticated.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:layout\\mainlayoutauthenticated.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\components\\usernavmenuitem.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:components\\usernavmenuitem.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\pages\\userdashboard.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:pages\\userdashboard.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\components\\adminnavmenuitem.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:components\\adminnavmenuitem.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\pages\\register.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:pages\\register.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\pages\\categories.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:pages\\categories.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\pages\\userpermissions.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:pages\\userpermissions.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\pages\\managecategories.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:pages\\managecategories.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\services\\customauthstateprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:services\\customauthstateprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\pages\\users.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:pages\\users.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\components\\navmenuitem.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:components\\navmenuitem.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\components\\authorizerouteview.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:components\\authorizerouteview.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\services\\employeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:services\\employeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\pages\\profile.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:pages\\profile.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\models\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:models\\loginresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\models\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:models\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\models\\userlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:models\\userlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\models\\userresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:models\\userresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\models\\updateuserrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:models\\updateuserrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\models\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:models\\registerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\components\\quizcomponent.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:components\\quizcomponent.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\models\\addemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:models\\addemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\pages\\employees.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:pages\\employees.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\models\\updateemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:models\\updateemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\pages\\quizpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:pages\\quizpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\components\\checks.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:components\\checks.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\wwwroot\\css\\bootstrap\\bootstrap.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:wwwroot\\css\\bootstrap\\bootstrap.min.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\wwwroot\\icon-192.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:wwwroot\\icon-192.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|d:\\test c#\\crud_employee-standalone\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{EC7833FD-B2BA-4556-9171-603AD247F307}|CRUD_Employee-standAlone.csproj|solutionrelative:wwwroot\\css\\bootstrap\\bootstrap.min.css.map||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Register.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\Register.razor",
+              "RelativeDocumentMoniker": "Pages\\Register.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\Register.razor",
+              "RelativeToolTip": "Pages\\Register.razor",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAowHYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-25T05:44:15.863Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Categories.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\Categories.razor",
+              "RelativeDocumentMoniker": "Pages\\Categories.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\Categories.razor",
+              "RelativeToolTip": "Pages\\Categories.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-26T10:08:49.09Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UserPermissions.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\UserPermissions.razor",
+              "RelativeDocumentMoniker": "Pages\\UserPermissions.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\UserPermissions.razor",
+              "RelativeToolTip": "Pages\\UserPermissions.razor",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAswF8AAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-26T10:13:15.996Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ManageCategories.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\ManageCategories.razor",
+              "RelativeDocumentMoniker": "Pages\\ManageCategories.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\ManageCategories.razor",
+              "RelativeToolTip": "Pages\\ManageCategories.razor",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAswHQAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-26T10:09:09.328Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAAE4AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T05:24:05.629Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CRUD_Employee-standAlone.csproj",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\CRUD_Employee-standAlone.csproj",
+              "RelativeDocumentMoniker": "CRUD_Employee-standAlone.csproj",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\CRUD_Employee-standAlone.csproj",
+              "RelativeToolTip": "CRUD_Employee-standAlone.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-22T08:30:03.457Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "App.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\App.razor",
+              "RelativeDocumentMoniker": "App.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\App.razor",
+              "RelativeToolTip": "App.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-24T06:19:25.084Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "index.html",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\wwwroot\\index.html",
+              "RelativeDocumentMoniker": "wwwroot\\index.html",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\wwwroot\\index.html",
+              "RelativeToolTip": "wwwroot\\index.html",
+              "ViewState": "AgIAABcAAAAAAAAAAAAiwDQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-09-23T09:28:04.844Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AdminNavMenuItem.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Components\\AdminNavMenuItem.razor",
+              "RelativeDocumentMoniker": "Components\\AdminNavMenuItem.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Components\\AdminNavMenuItem.razor",
+              "RelativeToolTip": "Components\\AdminNavMenuItem.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-25T08:37:27.967Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Home.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "Pages\\Home.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\Home.razor",
+              "RelativeToolTip": "Pages\\Home.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-22T08:34:32.212Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MainLayoutAuthenticated.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Layout\\MainLayoutAuthenticated.razor",
+              "RelativeDocumentMoniker": "Layout\\MainLayoutAuthenticated.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Layout\\MainLayoutAuthenticated.razor",
+              "RelativeToolTip": "Layout\\MainLayoutAuthenticated.razor",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowDYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-24T08:35:04.651Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UserDashboard.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\UserDashboard.razor",
+              "RelativeDocumentMoniker": "Pages\\UserDashboard.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\UserDashboard.razor",
+              "RelativeToolTip": "Pages\\UserDashboard.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAI0AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-24T06:27:20.405Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UserNavMenuItem.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Components\\UserNavMenuItem.razor",
+              "RelativeDocumentMoniker": "Components\\UserNavMenuItem.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Components\\UserNavMenuItem.razor",
+              "RelativeToolTip": "Components\\UserNavMenuItem.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-25T06:56:24.49Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CategoryService.cs",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Services\\CategoryService.cs",
+              "RelativeDocumentMoniker": "Services\\CategoryService.cs",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Services\\CategoryService.cs",
+              "RelativeToolTip": "Services\\CategoryService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-26T10:08:10.115Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Category.cs",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\Category.cs",
+              "RelativeDocumentMoniker": "Models\\Category.cs",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\Category.cs",
+              "RelativeToolTip": "Models\\Category.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-26T10:07:38.19Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Login.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\Login.razor",
+              "RelativeDocumentMoniker": "Pages\\Login.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\Login.razor",
+              "RelativeToolTip": "Pages\\Login.razor",
+              "ViewState": "AgIAAJMAAAAAAAAAAAAowLYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-24T08:16:49.978Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "Services\\AuthService.cs",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Services\\AuthService.cs",
+              "RelativeToolTip": "Services\\AuthService.cs",
+              "ViewState": "AgIAAAYBAAAAAAAAAAAmwCUBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T08:13:29.758Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "CustomAuthStateProvider.cs",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Services\\CustomAuthStateProvider.cs",
+              "RelativeDocumentMoniker": "Services\\CustomAuthStateProvider.cs",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Services\\CustomAuthStateProvider.cs",
+              "RelativeToolTip": "Services\\CustomAuthStateProvider.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAAwDgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T08:13:58.468Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Users.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\Users.razor",
+              "RelativeDocumentMoniker": "Pages\\Users.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\Users.razor",
+              "RelativeToolTip": "Pages\\Users.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHABAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-25T05:48:50.211Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "NavMenuItem.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Components\\NavMenuItem.razor",
+              "RelativeDocumentMoniker": "Components\\NavMenuItem.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Components\\NavMenuItem.razor",
+              "RelativeToolTip": "Components\\NavMenuItem.razor",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAowCcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-25T03:58:35.021Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "AuthorizeRouteView.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Components\\AuthorizeRouteView.razor",
+              "RelativeDocumentMoniker": "Components\\AuthorizeRouteView.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Components\\AuthorizeRouteView.razor",
+              "RelativeToolTip": "Components\\AuthorizeRouteView.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-24T08:25:59.749Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Layout\\MainLayout.razor",
+              "RelativeDocumentMoniker": "Layout\\MainLayout.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Layout\\MainLayout.razor",
+              "RelativeToolTip": "Layout\\MainLayout.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-24T06:18:42.341Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "EmployeeService.cs",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Services\\EmployeeService.cs",
+              "RelativeDocumentMoniker": "Services\\EmployeeService.cs",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Services\\EmployeeService.cs",
+              "RelativeToolTip": "Services\\EmployeeService.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAowC0AAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T05:27:35.562Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Profile.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\Profile.razor",
+              "RelativeDocumentMoniker": "Pages\\Profile.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\Profile.razor",
+              "RelativeToolTip": "Pages\\Profile.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-25T05:44:42.425Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "LoginRequest.cs",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\LoginRequest.cs",
+              "RelativeDocumentMoniker": "Models\\LoginRequest.cs",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\LoginRequest.cs",
+              "RelativeToolTip": "Models\\LoginRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T08:12:44.74Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "UserLogin.cs",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\UserLogin.cs",
+              "RelativeDocumentMoniker": "Models\\UserLogin.cs",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\UserLogin.cs",
+              "RelativeToolTip": "Models\\UserLogin.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T05:35:53.113Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "UserResponse.cs",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\UserResponse.cs",
+              "RelativeDocumentMoniker": "Models\\UserResponse.cs",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\UserResponse.cs",
+              "RelativeToolTip": "Models\\UserResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T05:35:27.753Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "LoginResponse.cs",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\LoginResponse.cs",
+              "RelativeDocumentMoniker": "Models\\LoginResponse.cs",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\LoginResponse.cs",
+              "RelativeToolTip": "Models\\LoginResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T08:13:09.232Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "UpdateUserRequest.cs",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\UpdateUserRequest.cs",
+              "RelativeDocumentMoniker": "Models\\UpdateUserRequest.cs",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\UpdateUserRequest.cs",
+              "RelativeToolTip": "Models\\UpdateUserRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T05:35:12.412Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "RegisterRequest.cs",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\RegisterRequest.cs",
+              "RelativeDocumentMoniker": "Models\\RegisterRequest.cs",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\RegisterRequest.cs",
+              "RelativeToolTip": "Models\\RegisterRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T05:34:51.001Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Employee.cs",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\Employee.cs",
+              "RelativeDocumentMoniker": "Models\\Employee.cs",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\Employee.cs",
+              "RelativeToolTip": "Models\\Employee.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T05:21:53.715Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "QuizComponent.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Components\\QuizComponent.razor",
+              "RelativeDocumentMoniker": "Components\\QuizComponent.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Components\\QuizComponent.razor",
+              "RelativeToolTip": "Components\\QuizComponent.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-22T10:56:53.939Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "app.css",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\wwwroot\\css\\app.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\app.css",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\wwwroot\\css\\app.css",
+              "RelativeToolTip": "wwwroot\\css\\app.css",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAcwHEAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-09-24T06:22:42.667Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "AddEmployeeDto.cs",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\AddEmployeeDto.cs",
+              "RelativeDocumentMoniker": "Models\\AddEmployeeDto.cs",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\AddEmployeeDto.cs",
+              "RelativeToolTip": "Models\\AddEmployeeDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-22T05:22:11.42Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Employees.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\Employees.razor",
+              "RelativeDocumentMoniker": "Pages\\Employees.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\Employees.razor",
+              "RelativeToolTip": "Pages\\Employees.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-22T05:28:14.225Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "_Imports.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\_Imports.razor",
+              "RelativeDocumentMoniker": "_Imports.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\_Imports.razor",
+              "RelativeToolTip": "_Imports.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-22T08:29:30.302Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "UpdateEmployeeDto.cs",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\UpdateEmployeeDto.cs",
+              "RelativeDocumentMoniker": "Models\\UpdateEmployeeDto.cs",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Models\\UpdateEmployeeDto.cs",
+              "RelativeToolTip": "Models\\UpdateEmployeeDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T09:10:51.966Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "QuizPage.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\QuizPage.razor",
+              "RelativeDocumentMoniker": "Pages\\QuizPage.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Pages\\QuizPage.razor",
+              "RelativeToolTip": "Pages\\QuizPage.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-22T11:01:38.911Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Checks.razor",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\Components\\Checks.razor",
+              "RelativeDocumentMoniker": "Components\\Checks.razor",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\Components\\Checks.razor",
+              "RelativeToolTip": "Components\\Checks.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-22T08:32:17.042Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "bootstrap.min.css",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\bootstrap\\bootstrap.min.css",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+              "RelativeToolTip": "wwwroot\\css\\bootstrap\\bootstrap.min.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-09-24T06:35:42.186Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "icon-192.png - PNG [192x192, 8 bit, PNG]",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\wwwroot\\icon-192.png",
+              "RelativeDocumentMoniker": "wwwroot\\icon-192.png",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\wwwroot\\icon-192.png - PNG [192x192, 8 bit, PNG]",
+              "RelativeToolTip": "wwwroot\\icon-192.png - PNG [192x192, 8 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2025-09-24T06:35:55.756Z",
+              "EditorCaption": " - PNG [192x192, 8 bit, PNG]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "bootstrap.min.css.map",
+              "DocumentMoniker": "D:\\test c#\\CRUD_Employee-standAlone\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+              "RelativeDocumentMoniker": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+              "ToolTip": "D:\\test c#\\CRUD_Employee-standAlone\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+              "RelativeToolTip": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-09-24T06:35:35.155Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

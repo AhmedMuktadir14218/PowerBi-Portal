@@ -1,0 +1,206 @@
+﻿@inject NavigationManager Navigation
+
+<div class="relative group">
+    <a href="@Href" class="@GetCssClass()" style="text-decoration:none;">
+        <div class="@GetDivClass()">
+            
+            <!-- Icon -->
+            <svg class="w-5 h-5 flex-shrink-0 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                @switch (Icon.ToLower())
+                {
+                    case "home":
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 
+                                 0 001 1h3m10-11l2 2m-2-2v10a1 1 
+                                 0 01-1 1h-3m-6 0a1 1 0 
+                                 001-1v-4a1 1 0 011-1h2a1 
+                                 1 0 011 1v4a1 1 0 001 
+                                 1m-6 0h6"></path>;
+                        break;
+                    
+                    case "dashboard":
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M16 7a4 4 0 11-8 0 4 4 
+                                 0 018 0zM12 14a7 7 0 
+                                 00-7 7h14a7 7 0 
+                                 00-7-7z"></path>;
+                        break;
+
+                    case "chart":
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M9 19v-6a2 2 0 00-2-2H5a2 
+                                 2 0 00-2 2v6a2 2 0 002 
+                                 2h2a2 2 0 002-2zm0 
+                                 0V9a2 2 0 012-2h2a2 2 
+                                 0 012 2v10m-6 0a2 
+                                 2 0 002 2h2a2 2 0 
+                                 002-2m0 0V5a2 2 0 
+                                 012-2h2a2 2 0 012 
+                                 2v14a2 2 0 01-2 2h-2a2 
+                                 2 0 01-2-2z"></path>;
+                        break;
+
+                    case "users":
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 4.354a4 4 0 110 
+                                 5.292M15 21H3v-1a6 6 
+                                 0 0112 0v1zm0 0h6v-1a6 
+                                 6 0 00-9-5.197m13.5-9a2.5 
+                                 2.5 0 11-5 0 2.5 
+                                 2.5 0 015 0z"></path>;
+                        break;
+
+                    case "profile":
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M16 7a4 4 0 11-8 0 4 4 
+                                 0 018 0zM12 14a7 7 0 
+                                 00-7 7h14a7 7 0 
+                                 00-7-7z"></path>;
+                        break;
+
+                    case "categories":
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 11H5m14 0a2 2 0 
+                                 012 2v6a2 2 0 01-2 
+                                 2H5a2 2 0 01-2-2v-6a2 
+                                 2 0 012-2m14 0V9a2 2 
+                                 0-2-2M5 9a2 2 0 
+                                 012-2m0 0V5a2 2 0 
+                                 012-2h6a2 2 0 012 
+                                 2v2M7 7h10"></path>;
+                        break;
+
+                    case "permissions":
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 15v2m-6 4h12a2 2 
+                                 0 002-2v-6a2 2 0-2 
+                                 -2H6a2 2 0-2 
+                                 2v6a2 2 0 002 
+                                 2zm10-10V7a4 
+                                 4 0 00-8 0v4h8z"></path>;
+                        break;
+
+                    default:
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h16m-7 6h7"></path>;
+                        break;
+                }
+            </svg>
+
+            <!-- Text -->
+            @if (IsExpanded)
+            {
+                <span class="font-medium">@Text</span>
+            }
+        </div>
+    </a>
+
+    <!-- Tooltip only for collapsed -->
+    @if (!IsExpanded)
+    {
+        <div class="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 
+                    bg-gray-800 text-white text-sm rounded py-1 px-2 opacity-0 
+                    group-hover:opacity-100 transition">
+            @Text
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter] public string Href { get; set; } = "";
+    [Parameter] public string Icon { get; set; } = "";
+    [Parameter] public string Text { get; set; } = "";
+    [Parameter] public bool IsExpanded { get; set; } = false;
+
+    private string GetCssClass()
+    {
+        var currentPath = Navigation.ToBaseRelativePath(Navigation.Uri);
+        var isActive = (Href == "" && currentPath == "") || (Href != "" && currentPath.StartsWith(Href));
+
+        return isActive
+            ? "flex items-center w-full text-blue-700 bg-[#DBEAFE] rounded-lg no-underline transition"
+            : "flex items-center w-full text-gray-700 hover:text-blue-600 hover:bg-gray-100 rounded-lg no-underline transition";
+    }
+
+    private string GetDivClass()
+    {
+        return IsExpanded 
+            ? "flex items-center space-x-3 px-4 py-3" 
+            : "flex items-center justify-center px-2 py-3";
+    }
+}
+
+
+@* @inject NavigationManager Navigation
+
+<div class="relative group"> <a href="@Href" class="@GetCssClass()"> <div class="@GetDivClass()"> <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"> @switch (Icon.ToLower()) { case "home": <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path> break;
+
+                case "dashboard":
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    break;
+
+                case "chart":
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    break;
+
+                case "users":
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                    break;
+                case "profile":
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    break;
+
+                case "categories":
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    break;
+                case "permissions":
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    break;
+                default:
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    break;
+            }
+        </svg>
+        @if (IsExpanded)
+        {
+            <span class="font-medium">@Text</span>
+        }
+    </div>
+</a>
+
+<!-- Tooltip for collapsed state -->
+@if (!IsExpanded)
+{
+    <div class="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-sm rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50">
+        @Text
+    </div>
+}
+</div>
+@code {
+[Parameter] public string Href { get; set; } = "";
+[Parameter] public string Icon { get; set; } = "";
+[Parameter] public string Text { get; set; } = "";
+[Parameter] public bool IsExpanded { get; set; } = false;
+ 
+private string GetCssClass()
+{
+    var currentPath = Navigation.ToBaseRelativePath(Navigation.Uri);
+    var isActive = (Href == "" && currentPath == "") || (Href != "" && currentPath.StartsWith(Href));
+
+    return isActive
+        ? "block text-blue-600 bg-blue-50 hover:bg-blue-100"
+        : "block text-gray-700 hover:text-blue-600 hover:bg-gray-50";
+}
+
+private string GetDivClass()
+{
+    if (IsExpanded)
+    {
+        return "flex items-center justify-start space-x-3 px-4 py-3 rounded-lg transition-all duration-200";
+    }
+    else
+    {
+        return "flex items-center justify-center px-2 py-3 rounded-lg transition-all duration-200";
+    }
+}
+} *@

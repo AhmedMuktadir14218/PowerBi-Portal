@@ -1,0 +1,11 @@
+wwwroot\BILogo.png
+wwwroot\css\app.css
+wwwroot\css\bootstrap\bootstrap.min.css
+wwwroot\css\bootstrap\bootstrap.min.css.map
+wwwroot\favicon.png
+wwwroot\homeban55.jpg
+wwwroot\icon-192.png
+wwwroot\index.html
+wwwroot\logoTusuka.png
+wwwroot\report_4370624.png
+wwwroot\sample-data\weather.json

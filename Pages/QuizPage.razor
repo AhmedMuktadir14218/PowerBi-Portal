@@ -1,0 +1,19 @@
+﻿@page "/quiz"
+<h3>QuizPage</h3>
+<QuizComponent Question="c# is _______ Language" AnswerA="programming" AnswerB="Markup" ForA="AAnswerMethod" ForB="BAnswerMethod"></QuizComponent>
+
+<p>The answer is @AnswerStatus</p>
+
+@code {
+    public string AnswerStatus { get; set; }
+
+    private void AAnswerMethod()
+    {
+        AnswerStatus = "Correct Answer";
+    }
+
+    private void BAnswerMethod()
+    {
+        AnswerStatus = "Wrong Answer";
+    }
+}

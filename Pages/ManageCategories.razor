@@ -1,0 +1,315 @@
+﻿@page "/manage-categories"
+@using CRUD_Employee_standAlone.Models
+@using CRUD_Employee_standAlone.Services
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@attribute [Authorize(Roles = "admin")]
+@inject CategoryService CategoryService
+@inject AuthService AuthService
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Manage Categories</PageTitle>
+
+<div class="max-w-7xl mx-auto py-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-900">Category Management</h1>
+        <button @onclick="ShowAddCategoryModal"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            Add Category
+        </button>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="text-center py-8">
+            <div class="animate-spin inline-block w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full"></div>
+            <p class="mt-2 text-gray-600">Loading categories...</p>
+        </div>
+    }
+    else if (categories == null || !categories.Any())
+    {
+        <div class="text-center py-8">
+            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">No categories</h3>
+            <p class="mt-1 text-sm text-gray-500">Get started by creating a new category.</p>
+        </div>
+    }
+    else
+    {
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Content</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created By</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created Date</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach (var category in categories)
+                    {
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900">@category.Name</div>
+                                    @if (!string.IsNullOrEmpty(category.Link))
+                                    {
+                                        <a href="@category.Link" target="_blank" class="text-sm text-blue-600 hover:text-blue-800">View Link</a>
+                                    }
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="text-sm text-gray-900 max-w-xs truncate">@category.Content</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                @category.CreatedByUsername
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                @category.CreatedAt.ToString("MMM dd, yyyy")
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                                <button @onclick="() => ShowEditCategoryModal(category)"
+                                        class="text-blue-600 hover:text-blue-900">
+                                    Edit
+                                </button>
+                                <button @onclick="() => DeleteCategory(category)"
+                                        class="text-red-600 hover:text-red-900">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+<!-- Add/Edit Category Modal -->
+@if (showModal)
+{
+    <div class="fixed inset-0 z-50 overflow-y-auto" @onclick:stopPropagation="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <!-- Background overlay -->
+            @* <div class="fixed inset-0 transition-opacity" @onclick="CloseModal">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div> *@
+
+            <!-- Modal panel -->
+            <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6" @onclick:stopPropagation="true">
+                <div class="mb-4">
+                    <h3 class="text-lg font-medium text-gray-900">
+                        @(isEditMode ? "Edit Category" : "Add New Category")
+                    </h3>
+                </div>
+
+                @if (!string.IsNullOrEmpty(modalErrorMessage))
+                {
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                        @modalErrorMessage
+                    </div>
+                }
+
+                <EditForm Model="categoryFormModel" OnValidSubmit="HandleSaveCategory">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary class="text-red-600 mb-4" />
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Category Name *</label>
+                            <InputText @bind-Value="categoryFormModel.Name"
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                       placeholder="Enter category name" />
+                            <ValidationMessage For="@(() => categoryFormModel.Name)" class="text-red-600 text-sm mt-1" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Content *</label>
+                            <InputTextArea @bind-Value="categoryFormModel.Content"
+                                           rows="4"
+                                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                           placeholder="Enter category content/description" />
+                            <ValidationMessage For="@(() => categoryFormModel.Content)" class="text-red-600 text-sm mt-1" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Link (Optional)</label>
+                            <InputText @bind-Value="categoryFormModel.Link"
+                                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                                       placeholder="Enter link URL" />
+                            <ValidationMessage For="@(() => categoryFormModel.Link)" class="text-red-600 text-sm mt-1" />
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200 mt-6">
+                        <button type="button" @onclick="CloseModal"
+                                class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-medium py-2 px-4 rounded-md">
+                            Cancel
+                        </button>
+                        <button type="submit" disabled="@isSaving"
+                                class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md disabled:opacity-50">
+                            @if (isSaving)
+                            {
+                                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            }
+                            @(isEditMode ? "Update Category" : "Create Category")
+                        </button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private List<Category>? categories;
+    private bool isLoading = true;
+    private bool showModal = false;
+    private bool isEditMode = false;
+    private bool isSaving = false;
+    private string modalErrorMessage = string.Empty;
+    private int editingCategoryId;
+
+    private CreateCategoryRequest categoryFormModel = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCategories();
+    }
+
+    private async Task LoadCategories()
+    {
+        isLoading = true;
+        try
+        {
+            categories = await CategoryService.GetCategoriesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading categories: {ex.Message}");
+            await JSRuntime.InvokeVoidAsync("alert", "Failed to load categories. Please refresh the page.");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void ShowAddCategoryModal()
+    {
+        categoryFormModel = new CreateCategoryRequest();
+        isEditMode = false;
+        modalErrorMessage = string.Empty;
+        showModal = true;
+    }
+
+    private async Task ShowEditCategoryModal(Category category)
+    {
+        categoryFormModel = new CreateCategoryRequest
+        {
+            Name = category.Name,
+            Content = category.Content,
+            Link = category.Link
+        };
+        editingCategoryId = category.Id;
+        isEditMode = true;
+        modalErrorMessage = string.Empty;
+        showModal = true;
+    }
+
+    private void CloseModal()
+    {
+        showModal = false;
+        modalErrorMessage = string.Empty;
+        categoryFormModel = new CreateCategoryRequest();
+        editingCategoryId = 0;
+    }
+
+    private async Task HandleSaveCategory()
+    {
+        isSaving = true;
+        modalErrorMessage = string.Empty;
+
+        try
+        {
+            bool success;
+
+            if (isEditMode)
+            {
+                var updateRequest = new UpdateCategoryRequest
+                {
+                    Name = categoryFormModel.Name?.Trim(),
+                    Content = categoryFormModel.Content?.Trim(),
+                    Link = string.IsNullOrWhiteSpace(categoryFormModel.Link) ? null : categoryFormModel.Link.Trim()
+                };
+                success = await CategoryService.UpdateCategoryAsync(editingCategoryId, updateRequest);
+            }
+            else
+            {
+                // Trim whitespace for new categories
+                categoryFormModel.Name = categoryFormModel.Name?.Trim() ?? string.Empty;
+                categoryFormModel.Content = categoryFormModel.Content?.Trim() ?? string.Empty;
+                categoryFormModel.Link = string.IsNullOrWhiteSpace(categoryFormModel.Link) ? null : categoryFormModel.Link.Trim();
+
+                success = await CategoryService.CreateCategoryAsync(categoryFormModel);
+            }
+
+            if (success)
+            {
+                CloseModal();
+                await LoadCategories();
+                await JSRuntime.InvokeVoidAsync("alert", isEditMode ? "Category updated successfully!" : "Category created successfully!");
+            }
+            else
+            {
+                modalErrorMessage = isEditMode ? "Failed to update category. Please try again." : "Failed to create category. Category name might already exist.";
+            }
+        }
+        catch (Exception ex)
+        {
+            modalErrorMessage = "An error occurred. Please try again.";
+            Console.WriteLine($"Error saving category: {ex.Message}");
+        }
+        finally
+        {
+            isSaving = false;
+        }
+    }
+
+    private async Task DeleteCategory(Category category)
+    {
+        try
+        {
+            var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete category '{category.Name}'?\n\nThis action cannot be undone.");
+
+            if (confirmed)
+            {
+                var success = await CategoryService.DeleteCategoryAsync(category.Id);
+                if (success)
+                {
+                    await LoadCategories();
+                    await JSRuntime.InvokeVoidAsync("alert", "Category deleted successfully!");
+                }
+                else
+                {
+                    await JSRuntime.InvokeVoidAsync("alert", "Failed to delete category. Please try again.");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "An error occurred while deleting the category.");
+            Console.WriteLine($"Error deleting category: {ex.Message}");
+        }
+    }
+}

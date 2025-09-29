@@ -1,0 +1,97 @@
+﻿@page "/categories"
+@using CRUD_Employee_standAlone.Models
+@using CRUD_Employee_standAlone.Services
+@inject CategoryService CategoryService
+@inject AuthService AuthService
+
+<PageTitle>My Categories</PageTitle>
+
+<div class="p-6">
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold text-gray-900">My Categories</h1>
+        <p class="text-gray-600 mt-2">Categories you have access to</p>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="flex justify-center items-center py-8">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+            <span class="ml-2 text-gray-600">Loading categories...</span>
+        </div>
+    }
+    else if (categories.Any())
+    {
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            @foreach (var category in categories)
+            {
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 border border-gray-200">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">@category.Name</h3>
+                            <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">
+                                Accessible
+                            </span>
+                        </div>
+
+                        <p class="text-gray-600 mb-4">@category.Content</p>
+
+                        <div class="flex items-center justify-between">
+                            <div class="text-sm text-gray-500">
+                                <p>Created by: @category.CreatedByUsername</p>
+                                <p>@category.CreatedAt.ToString("MMM dd, yyyy")</p>
+                            </div>
+
+                            @if (!string.IsNullOrEmpty(category.Link))
+                            {
+                                <a href="@category.Link" target="_blank"
+                                   class="inline-flex items-center px-3 py-2 border border-purple-300 rounded-md text-sm font-medium text-purple-700 bg-purple-50 hover:bg-purple-100 transition-colors duration-200">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M14 4h6m0 0v6m0-6L10 14"></path>
+                                    </svg>
+                                    Open Link
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-12">
+            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+            </svg>
+            <h3 class="mt-4 text-lg font-medium text-gray-900">No categories found</h3>
+            <p class="mt-2 text-gray-500">You don't have access to any categories yet. Contact your administrator to get access.</p>
+        </div>
+    }
+</div>
+
+@code {
+    private List<Category> categories = new();
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCategories();
+    }
+
+    private async Task LoadCategories()
+    {
+        isLoading = true;
+        try
+        {
+            categories = await CategoryService.GetCategoriesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading categories: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}
