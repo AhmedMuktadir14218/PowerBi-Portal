@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CRUD_Employee-standAlone")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+df7130778cc06feed0baced25000d97c7b46e3b5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0890fab92198c1bfce6b4106505b35c180a22900")]
 [assembly: System.Reflection.AssemblyProductAttribute("CRUD_Employee-standAlone")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CRUD_Employee-standAlone")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

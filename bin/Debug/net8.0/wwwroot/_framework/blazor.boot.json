@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "CRUD_Employee-standAlone",
   "resources": {
-    "hash": "sha256-FXJOjkqDbierw1UF3W75lCg0gVeJuyJscXNOL2fB+NM=",
+    "hash": "sha256-CLnIVotf22oA4VbPyN+LoHHAKcmVIXTrXVuhPLrGPbA=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-D0bzod5lwwSzPR43JC8TTCcZKw+3jIHOk8CZFCRj5is="
     },
@@ -215,10 +215,10 @@
       "mscorlib.wasm": "sha256-8qWtIcy8fV43tlcx4DxsF45RlkcfK6588vVoxF7be2E=",
       "netstandard.wasm": "sha256-eOgz2RiO4YaPLOMIGgVLNrcfsQhmLQJzR0N7Pu2teXc=",
       "System.Private.CoreLib.wasm": "sha256-F8T63QCIbMPXPQPqTcuyBAw+oVvZSrWjy88j7fiJQZ4=",
-      "CRUD_Employee-standAlone.wasm": "sha256-j2rQxhxI3PGXoGobbK5pBLBuW5L9buLDyFHgU7z541U="
+      "CRUD_Employee-standAlone.wasm": "sha256-xiO5ww63CQSsPaN8AF1s0C4ighafVbgx7eEQZ6bvOOw="
     },
     "pdb": {
-      "CRUD_Employee-standAlone.pdb": "sha256-iyvKs2vhAtVPTwVaX1yoOH3cZAAoaC227tjhi4pyN8I="
+      "CRUD_Employee-standAlone.pdb": "sha256-Sd6G6mO1xHJ0bdXzV0rPhJ5FhegQzZwaeDT+aHpNTAM="
     }
   },
   "cacheBootResources": true,

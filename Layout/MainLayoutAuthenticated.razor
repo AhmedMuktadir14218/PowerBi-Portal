@@ -24,7 +24,7 @@ else
                 <div class="flex flex-col h-full bg-[#F5F5F5]">
                     
                     <!-- Logo + Toggle -->
-                    <div class="flex items-center justify-between h-16 px-4 border-b border-gray-200">
+                    <div class="flex items-center justify-between h-16  px-4 border-b border-gray-200">
                         @if (sidebarExpanded)
                         {
                             <img src="logoTusuka.png" alt="Logo" class="h-8" />
@@ -123,15 +123,16 @@ else
                     <nav class="flex-1 px-2 py-4 space-y-1">
                         @if (userCategories != null && userCategories.Any())
                         {
-                            @foreach (var category in userCategories)
-                            {
-                                <UserNavMenuItem Href="" 
-                                                 Icon="@category.Name.ToLower()" 
-                                                 Text="@category.Name" 
-                                                 IsExpanded="userSidebarExpanded" 
-                                                 PreventDefault="true"
-                                                 OnClick="() => SelectCategory(category)" />
-                            }
+                         @foreach (var category in userCategories)
+{
+    <UserNavMenuItem Href=""
+                     Icon="@category.Name.ToLower()"
+                     Text="@category.Name"
+                     IsExpanded="userSidebarExpanded"
+                     PreventDefault="true"
+                     IsActive="@(selectedCategory?.Id == category.Id)"
+                     OnClick="() => SelectCategory(category)" />
+}
                         }
                         <UserNavMenuItem Href="profile" Icon="profile" Text="Profile" IsExpanded="userSidebarExpanded" />
                     </nav>
@@ -234,16 +235,19 @@ else
             selectedCategory = userCategories.First();
     }
 
-    private void SelectCategory(Category category)
+private void SelectCategory(Category category)
+{
+    selectedCategory = category;
+
+    // Show dashboard page (but keep nav selected)
+    var currentPath = Navigation.ToBaseRelativePath(Navigation.Uri);
+    if (currentPath != "dashboard")
     {
-        selectedCategory = category;
-        var currentPath = Navigation.ToBaseRelativePath(Navigation.Uri);
-        if (currentPath != "dashboard")
-        {
-            Navigation.NavigateTo("/dashboard");
-        }
-        StateHasChanged();
+        Navigation.NavigateTo("/dashboard");
     }
+
+    StateHasChanged(); // 🔹 ensures nav menu re-renders and highlights category
+}
 
     private string GetAdminSidebarClass() =>
         sidebarExpanded ? "fixed inset-y-0 left-0 w-64 shadow-lg transition-all" : "fixed inset-y-0 left-0 w-16 shadow-lg transition-all";
@@ -260,12 +264,12 @@ else
     private void ToggleSidebar() => sidebarExpanded = !sidebarExpanded;
     private void ToggleUserSidebar() => userSidebarExpanded = !userSidebarExpanded;
 
-    private async Task Logout()
-    {
-        await AuthService.LogoutAsync();
-        AuthStateProvider.NotifyUserLogout();
-        Navigation.NavigateTo("/login", forceLoad: true);
-    }
+private async Task Logout()
+{
+    await AuthService.LogoutAsync();
+    AuthStateProvider.NotifyUserLogout();
+    Navigation.NavigateTo("/login", forceLoad: true);
+}
 }
 
 

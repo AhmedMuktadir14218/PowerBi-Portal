@@ -1062,6 +1062,7 @@ D:\test c#\CRUD_Employee-standAlone\obj\Debug\net8.0\compressed\oytha2kigp-pdwpw
 D:\test c#\CRUD_Employee-standAlone\obj\Debug\net8.0\compressed\g1wkk4fhap-8s3epro04e.gz
 D:\test c#\CRUD_Employee-standAlone\obj\Debug\net8.0\compressed\jmww2zttvh-a5h4r7ey6y.gz
 D:\test c#\CRUD_Employee-standAlone\obj\Debug\net8.0\compressed\f3fuhcxbpn-md6jy92bev.gz
-D:\test c#\CRUD_Employee-standAlone\obj\Debug\net8.0\compressed\8hlk1dwkd9-hcrcgk2u27.gz
-D:\test c#\CRUD_Employee-standAlone\obj\Debug\net8.0\compressed\icu4ghde3u-vf93hmthfx.gz
-D:\test c#\CRUD_Employee-standAlone\obj\Debug\net8.0\compressed\reivvgwabr-emx647vfo5.gz
+D:\test c#\CRUD_Employee-standAlone\obj\Debug\net8.0\CRUD_Employee-standAlone.sourcelink.json
+D:\test c#\CRUD_Employee-standAlone\obj\Debug\net8.0\compressed\8hlk1dwkd9-q8c5n2l0g5.gz
+D:\test c#\CRUD_Employee-standAlone\obj\Debug\net8.0\compressed\icu4ghde3u-dn4z891ge4.gz
+D:\test c#\CRUD_Employee-standAlone\obj\Debug\net8.0\compressed\reivvgwabr-1xn2xqtsda.gz
